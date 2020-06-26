@@ -1,2 +1,7 @@
-# covid_who
-# covid_who
+# periodicity in COVID data from WHO
+
+I was wondering if there was any periodicity in new cases repotred by countries, and what that periodicity looked like across the countries reporting cases to the WHO. 
+
+![Global periodicity(days) in new COVID cases][covid.png]
+
+```python3 who_covid.py WHO-COVID-19-global-data.csv```
