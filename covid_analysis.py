@@ -229,7 +229,10 @@ categories = {
 	"deaths":{'col':'New_deaths','start_threshold':300, 'end_threshold':20, 'label':'deaths', 'min_days':60},
 	}
 
-for (source,url) in [ ("NYT-County","https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"),("NYT","https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"), ("WHO","https://covid19.who.int/WHO-COVID-19-global-data.csv") ]:
+for (source,url) in [ 
+	#("NYT-County","https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"),
+	("NYT","https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"), 
+	("WHO","https://covid19.who.int/WHO-COVID-19-global-data.csv") ]:
 	s=requests.get(url).content
 	df=pd.read_csv(io.StringIO(s.decode('utf-8')))
 	for category in "cases","deaths":
