@@ -225,15 +225,23 @@ def process_df(prefix,df,category):
 
 
 categories = {
-	"cases":{'col':'New_cases','start_threshold':500, 'end_threshold':100, 'label':'cases', 'min_days':60},
+	#"cases":{'col':'New_cases','start_threshold':500, 'end_threshold':100, 'label':'cases', 'min_days':60},
+	"cases":{'col':'New_cases','start_threshold':400, 'end_threshold':100, 'label':'cases', 'min_days':80},
 	"deaths":{'col':'New_deaths','start_threshold':300, 'end_threshold':20, 'label':'deaths', 'min_days':60},
 	}
 
-for (source,url) in [ 
-	#("NYT-County","https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"),
+sources= [#("NYT-County","https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"),
 	("NYT","https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"), 
-	("WHO","https://covid19.who.int/WHO-COVID-19-global-data.csv") ]:
-	s=requests.get(url).content
-	df=pd.read_csv(io.StringIO(s.decode('utf-8')))
+	("WHO","https://covid19.who.int/WHO-COVID-19-global-data.csv") ]
+if len(sys.argv) not in (1,3):
+	print("%s | %s SOURCE URL")
+	sources = [(sys.argv[1],sys.argv[2])] 	
+
+for (source,url) in sources:
+	if 'http' in url:
+		s=requests.get(url).content
+		df=pd.read_csv(io.StringIO(s.decode('utf-8')))
+	else:
+		df=pd.read_csv(url)
 	for category in "cases","deaths":
 		process_df(source,df,category)
